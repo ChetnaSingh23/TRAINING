@@ -1,0 +1,165 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+    <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <link rel="canonical" href="https://ampbyexample.com/samples_templates/comment_section/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-custom>
+    form {
+      padding-right: 0px;
+    }
+    form.amp-form-submit-success [submit-success] {
+        width: 100%;
+        color: black;
+    }
+    form.amp-form-submit-success > div.comment-user, 
+    form.amp-form-submit-success .button{
+        display: none;
+    }
+    form.amp-form-submit-error [submit-error] {
+        color: red;
+    }
+    .user {
+      color: #ff4081;
+      font-weight: 700;
+    }
+    .date {
+      color: #a8a3ae;
+    }
+    .comment {
+        background: #f2f2f2;
+        margin: 0 16px 16px 0;
+        width: 100%;
+    }
+    .button-primary {
+      margin: 16px
+    }
+    .user-pic {
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+    .comments-container {
+      padding-left: 16px;
+    }
+    .comment-user {
+      display: flex;
+    }
+
+
+    amp-youtube{margin-left: 20%; margin-right: 20%; width: 480; height: 270}
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script id="amp-access" type="application/json">
+    {
+        "authorization": "https://ampbyexample.com/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "noPingback": "true",
+        "login": {
+          "sign-in": "https://ampbyexample.com/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
+          "sign-out": "https://ampbyexample.com/samples_templates/comment_section/logout"
+        },
+        "authorizationFallbackResponse": {
+            "error": true,
+            "loggedIn": false
+        }
+    }
+    </script>
+    </head>
+<body>
+
+
+<amp-youtube
+    data-videoid="w4iHhY4LqGU"
+    layout="responsive"
+    width="480" height="270">
+      
+    </amp-youtube>
+
+<h5>Comments</h5>
+<amp-list width=auto
+      height=200
+      layout=fixed-height
+      src="https://ampbyexample.com/json/comments.json">
+    <template type="amp-mustache">
+      <div class="comment-user comments-container">
+        <amp-img width="44"
+            height="44"
+            class="user-pic"
+            alt="user"
+            src="img/userp.png"></amp-img>
+        <div class="card comment">
+          <p>
+            <span class="user">{{user}}</span>
+            <span class="date">{{datetime}}</span>
+          </p>
+          <p>{{text}}</p>
+        </div>
+      </div>
+    </template>
+  </amp-list>
+  <span amp-access="NOT loggedIn"
+      role="button"
+      tabindex="0"
+      amp-access-hide>
+    <h5>Please login to comment</h5>
+    <button on="tap:amp-access.login-sign-in"
+        class="button-primary comment-button">Login</button>
+  </span>
+  <button amp-access="loggedIn"
+      amp-access-hide
+      tabindex="0"
+      on="tap:amp-access.login-sign-out"
+      class="button-primary comment-button">Logout</button>
+
+      <form amp-access="loggedIn"
+      amp-access-hide
+      method="post"
+      action-xhr="https://ampbyexample.com/samples_templates/comment_section/submit-comment-xhr"
+      target="_top">
+    <div class="comment-user">
+      <amp-img width="44"
+          class="user-pic"
+          height="44"
+          alt="user"
+          src="img/userp.png"></amp-img>
+      <input type="text"
+          class="data-input"
+          name="text"
+          placeholder="Your comment..."
+          required>
+    </div>
+    <input type="submit"
+        value="Comment"
+        class="button button-primary comment-button">
+    <div submit-success>
+      <template type="amp-mustache">
+        <div class="comment-user">
+          <amp-img width="44"
+              class="user-pic"
+              height="44"
+              alt="user"
+              src="img/userp.png"></amp-img>
+          <div class="card comment">
+            <p>
+              <span class="user">{{User}}</span>
+              <span class="date">{{Datetime}}</span>
+            </p>
+            <p>{{Text}}</p>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! Looks like something went wrong with your comment, please try to submit it again. {{error}}
+      </template>
+    </div>
+  </form>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+
+
+
+
+ <amp-analytics>
+    <script type="application/json">
+      {
+        "requests": {
+          "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=amp-r5IbHGDgVKMfVUc3ZWUf84dq3jEQnz2I2ga4ZTQkwuzfNNBW58OBjbJYB1XJI9x_&account=ampbyexample&event=${eventId}"
+        },
+        "triggers": {
+          "trackPageview": {
+            "on": "visible",
+            "request": "event",
+            "visibilitySpec": {
+              "selector": "#cat-image-id",
+              "visiblePercentageMin": 20,
+              "totalTimeMin": 500,
+              "continuousTimeMin": 200
+            },
+            "vars": {
+              "eventId": "catview"
+            }
+          }
+        }
+      }
+    </script>
+  </amp-analytics>
+
+
+
+
+<amp-img src="/img/pixel-white.png" layout="fixed-height" height="350" width="auto" placeholder="" class="i-amphtml-element i-amphtml-layout-fixed-height i-amphtml-layout-size-defined i-amphtml-layout amp-hidden" style="height: 350px;">
+  <img class="i-amphtml-fill-content -amp-fill-content i-amphtml-replaced-content -amp-replaced-content" src="/img/pixel-white.png"></amp-img>
+
+
+
+<i-amp-scroll-container class="amp-active"><iframe class="i-amphtml-fill-content -amp-fill-content" name="amp_iframe0" frameborder="0" sandbox="allow-scripts allow-same-origin" src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=amp-r5IbHGDgVKMfVUc3ZWUf84dq3jEQnz2I2ga4ZTQkwuzfNNBW58OBjbJYB1XJI9x_&amp;account=ampbyexample#amp=1" style="z-index: 0;"></iframe></i-amp-scroll-container>
+
+
+<iframe class="i-amphtml-fill-content -amp-fill-content" name="amp_iframe0" frameborder="0" sandbox="allow-scripts allow-same-origin" src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=amp-r5IbHGDgVKMfVUc3ZWUf84dq3jEQnz2I2ga4ZTQkwuzfNNBW58OBjbJYB1XJI9x_&amp;account=ampbyexample#amp=1" style="z-index: 0;"></iframe>
+<head>
+    <meta charset="utf-8">
+    <style media="screen" type="text/css">
+      body {
+        background: white;
+        font-family: Roboto,Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+      th { 
+        text-align: left;
+      }
+    </style>
+  </head>
+<script>
+      function getQueryParams(qs) {
+          qs = qs.split('+').join(' ');
+          var params = {},
+              tokens,
+              re = /[?&]?([^=]+)=([^&]*)/g;
+          while (tokens = re.exec(qs)) {
+              params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+          }
+          return params;
+      }
+
+      function updateTimestamp() {
+        var now = new Date();
+        document.getElementById("timestamp").textContent = now.toLocaleTimeString();
+      }
+
+      function updateAnalyticsData(newData) {
+        var el = document.createElement('div');
+        var att = document.createAttribute("id");
+        att.value = "data";          
+        el.setAttributeNode(att);
+        el.innerHTML = newData;
+        var data = document.getElementById("data");
+        var parentDiv = data.parentNode;
+        parentDiv.replaceChild(el, data);
+      }
+
+      if (!!window.EventSource) {
+        var query = getQueryParams(document.location.search);
+        var account = query.account;
+        var user = query.user;
+        var source = new EventSource('/amp-analytics/embed/listen?account=' + account + '&user=' + user);
+        console.log('adding event listener for ' + account + ' and ' + user);
+        source.onmessage = function(e) {
+          updateAnalyticsData(e.data);
+          updateTimestamp();
+        };
+      }
+    </script>
+    <div id="data">
+    <table>
+    	<tbody>
+    <tr>
+      <th>Event</th>
+      <th>Count</th>
+    </tr>
+    <tr><td>pageview </td>	<td>0</td></tr>
+    <tr><td>timer</td> <td>0</td></tr>
+    <tr> <td>scroll</td> <td>0</td>	</tr>
+    <tr><td>catview</td><td>0</td></tr>
+   </tbody>
+    </table>
+    </div>
+    <p>Last updated: <span id="timestamp">12:50:02</span></p>

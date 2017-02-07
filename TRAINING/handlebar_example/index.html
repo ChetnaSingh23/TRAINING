@@ -1,0 +1,38 @@
+
+<html>
+<head>
+  <TITLE>
+    HELLO HANDLEBARS
+  </TITLE>
+ <script src="/home/scriptbees/Downloads/handlebars-v4.0.5.js "></script>
+</head>
+<body>
+<div id="derekData"></div>
+<script type="text/javascript">
+
+var myInfo="<p>My name is {{name}} and I live at {{street}} in {{city}},{{state}}</p>";
+var template = Handlebars.compile(myInfo);
+
+var data = template({name:"Chetna",street:"123 Main St",city:"RKLA",state:"ODISHA"});
+
+
+var i;
+for (i = 0; i < 10; i++) 
+{
+ 
+  document.getElementById("derekData").innerHTML += data;
+
+}
+</script>
+
+<p id="demo"></p>
+<script>
+var cars = ["Saab", "Volvo", "BMW"];
+document.getElementById("demo").innerHTML = cars;
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Concise Handlebars.js</title>
+    <!-- 0a. CSS -->
+    <link rel="stylesheet" href="style.css">
+ 
+    <!-- 0a. JS -->
+    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script><!-- online jquery.js -->
+    <script src="/home/scriptbees/Downloads/handlebars-v4.0.5.js"></script><!-- online handlebars.js-->
+  </head>
+ 
+  <body>
+    <!--1. Data (json format!) -->
+    <script>
+    var url='data.json'; // relative url : 'data.json'; protocole-relative absolute url: '//website.org/path/to/data.json';
+    </script>
+ 
+    <!-- 2. Anchor -->
+    <div id="anchor">This div is the <b>#anchor</b>.</div>
+ 
+    <!-- 3. Template -->
+    <script id="tpl" type="text/template">
+        {{#people}}
+            <div><img src="{{photo}}"><b><a href="{{twitter}}">{{family}} {{name}}</a></b> — {{title}}, {{place}} : {{introduction}}.</div>
+        {{/people}}
+    </script>
+ 
+    <!--4. Handlebars.js slingshot -->
+    <script>
+    //4a.function creation
+    var slingshot = function (url, tplId, anchor) {
+     $.getJSON(url, function(data) {
+              var template = $(tplId).html();
+              var stone = Handlebars.compile(template)(data);
+              $(anchor).append(stone);
+     });
+  }
+    //4b.function firing
+    slingshot('data.json', '#tpl', '#anchor'); // since url = 'data.json' , we can use both notations.
+    </script>
+  </body>

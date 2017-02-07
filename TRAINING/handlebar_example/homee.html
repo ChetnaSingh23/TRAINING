@@ -1,0 +1,45 @@
+<html>
+<head>
+   <TITLE>
+     HELLO HANDLEBARS
+   </TITLE>
+  <script src="../home/scriptbees/Downloads/handlebars-v4.0.5.js "></script>
+  <style type="text/css">
+   .redText{color: red;}
+   .blueText{color: blue;}  
+   .greenText{color: green;}
+
+    </style>
+</head>
+<body>
+<div id="quoteData"></div>
+<script  id="quote-template" type="text/x-handlebars-template">
+<h3>Favourite {{name}} Quotes</h3>
+<ol>
+{{#each quotes}}
+<li>{{quote}}
+{{/each}}
+</ol>
+</li>
+</script>
+<script type="text/javascript">
+
+var quoteInfo=document.getElementById("quote-template").innerHTML;
+var template=Handlebars.compile(quoteInfo);
+
+var quoteData=template({
+	name:"Chetna Singh",
+	 quotes: [
+      {quote:"hello dear how u doing."},
+      {quote:"Doing python and handlebars"}
+      {quote:"Where is rahul????"}
+	]
+});
+
+document.getElementById("quoteData").innerHTML +=  quoteData; 
+</script>
+
+</body>
+</html>
+
+ 

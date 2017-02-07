@@ -1,0 +1,64 @@
+<script>
+"use strict";
+function byId(e){return document.getElementById(e);}
+
+window.addEventListener('load', onDocLoaded, false);
+
+function onDocLoaded()
+{
+    byId('mFileInput').addEventListener('change', onChosenFileChange, false);
+}
+
+function onChosenFileChange(evt)
+{
+    var fileType = this.files[0].type;
+
+    if (fileType.indexOf('audio') != -1)
+        loadFileObject(this.files[0], onSoundLoaded);
+
+    else if (fileType.indexOf('image') != -1)
+        loadFileObject(this.files[0], onImageLoaded);
+
+    else if (fileType.indexOf('video') != -1)
+        loadFileObject(this.files[0], onVideoLoaded);
+}
+
+function loadFileObject(fileObj, loadedCallback)
+{
+    var reader = new FileReader();
+    reader.onload = loadedCallback;
+    reader.readAsDataURL( fileObj );
+}
+
+function onSoundLoaded(evt)
+{
+    byId('sound').src = evt.target.result;
+    byId('sound').play();
+}
+
+function onImageLoaded(evt)
+{
+    byId('image').src = evt.target.result;
+}
+
+function onVideoLoaded(evt)
+{
+    byId('video').src = evt.target.result;
+    byId('video').play();
+}
+
+</script>
+
+<div style=" width: 400px; height:350px; margin: 0 auto; background-color: #ccc; border: 2px solid #000; margin-bottom: 10px;">
+    <input type="file" id="mFileInput"/>
+    <br>
+    <audio id="sound"></audio>
+    <img id='image'/>
+    <video controls="controls" id='video1' width="400" height="300" >
+        <source src="" type="video/mp4">
+            <source src="" type="video/ogg">
+                <source src="" type="video/webm">
+                    Your web browser does not support the video element
+
+</video>
+</div>

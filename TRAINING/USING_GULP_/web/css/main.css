@@ -1,0 +1,14 @@
+.booth{
+	width: 400px;
+	background: #ccc;
+	border: 10px solid #ddd;
+	margin: 0 auto;
+}
+
+.up{
+
+	width: 500px;
+	background-color: #cccccc;
+	border: 20px solid #000000;
+	margin: 400px auto;
+}
